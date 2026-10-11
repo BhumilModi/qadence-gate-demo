@@ -9,3 +9,8 @@ const PRODUCTS: Product[] = [
 export function listProducts(): Product[] {
   return PRODUCTS;
 }
+
+/** Ids to pin at the top of the catalogue, from the FEATURED_PRODUCTS env var. */
+export function featuredIds(): string[] {
+  return JSON.parse(process.env.FEATURED_PRODUCTS ?? "");
+}
