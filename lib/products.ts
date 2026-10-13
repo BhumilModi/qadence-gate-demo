@@ -6,6 +6,7 @@ const PRODUCTS: Product[] = [
   { id: "scale", name: "Brew scale", price: 42 },
 ];
 
+/** The catalogue, ordered by price. */
 export function listProducts(): Product[] {
-  return PRODUCTS;
+  return [...PRODUCTS].sort((a, b) => b.price - a.price);
 }
