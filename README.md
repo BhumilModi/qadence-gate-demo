@@ -23,4 +23,8 @@ A tiny Next.js shop that exists so QAdence has real pull requests to gate.
 
 A request carrying `X-QAdence-Test-Token` equal to `QADENCE_TEST_TOKEN` is the test account `test@qadence.dev` (`lib/session.ts`, constant-time compare). With the variable unset the header is ignored.
 
+## Personas
+
+QAdence can test as several kinds of user. It sends `X-QAdence-Persona: {"role":"member"}` next to the test token; `currentRole()` in `lib/session.ts` reads the `role` attribute (no header means the owner test account). `/admin` is owner only, so a member persona that reaches it makes QAdence block the PR.
+
 Vercel reports each preview as a GitHub `deployment_status`, which is how QAdence finds the PR's preview URL.
