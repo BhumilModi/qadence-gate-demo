@@ -14,6 +14,24 @@ function isTestToken(sent: string | null): boolean {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+/**
+ * The persona QAdence is testing as: the JSON in X-QAdence-Persona, honoured only
+ * alongside a valid test token. Only `role` is read; a real app would find or create a
+ * user with exactly these attributes. No persona header means the owner test account.
+ */
+export async function currentRole(): Promise<"owner" | "member" | null> {
+  const h = await headers();
+  if (isTestToken(h.get("x-qadence-test-token"))) {
+    try {
+      const role = JSON.parse(h.get("x-qadence-persona") ?? "{}").role;
+      return role === "member" ? "member" : "owner";
+    } catch {
+      return "member"; // an unreadable persona gets the least privilege
+    }
+  }
+  return (await cookies()).get(SESSION_COOKIE)?.value ? "member" : null;
+}
+
 /** The signed-in email, or null. Demo-grade: the session cookie is just the email. */
 export async function currentUser(): Promise<string | null> {
   if (isTestToken((await headers()).get("x-qadence-test-token"))) return TEST_ACCOUNT;
