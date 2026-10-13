@@ -1,4 +1,5 @@
 import { connection } from "next/server";
+import ProductRow from "@/components/ProductRow";
 import { listProducts } from "@/lib/products";
 
 export default async function Products() {
@@ -9,9 +10,7 @@ export default async function Products() {
       <h1>Products</h1>
       <ul>
         {products.map((p) => (
-          <li key={p.id}>
-            {p.name} · ${p.price}
-          </li>
+          <ProductRow key={p.id} product={p} />
         ))}
       </ul>
     </>
