@@ -1,9 +1,12 @@
 import { connection } from "next/server";
-import { listProducts } from "@/lib/products";
+import { featuredIds, listProducts } from "@/lib/products";
 
 export default async function Products() {
   await connection(); // rendered per request, like a real catalogue
-  const products = listProducts();
+  const featured = featuredIds();
+  const products = [...listProducts()].sort(
+    (a, b) => Number(featured.includes(b.id)) - Number(featured.includes(a.id)),
+  );
   return (
     <>
       <h1>Products</h1>
