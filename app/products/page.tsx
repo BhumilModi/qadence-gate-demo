@@ -1,4 +1,5 @@
 import { connection } from "next/server";
+import OrderCount from "@/components/OrderCount";
 import { listProducts } from "@/lib/products";
 
 export default async function Products() {
@@ -7,6 +8,7 @@ export default async function Products() {
   return (
     <>
       <h1>Products</h1>
+      <OrderCount />
       <ul>
         {products.map((p) => (
           <li key={p.id}>
