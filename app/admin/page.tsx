@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { listOrders } from "@/lib/orders";
 import { currentRole } from "@/lib/session";
@@ -11,6 +12,9 @@ export default async function Admin() {
     <>
       <h1>Admin</h1>
       <p>{listOrders().length} orders on file. Only owners see this page.</p>
+      <p>
+        <Link href="/admin/orders">See every order</Link>
+      </p>
     </>
   );
 }
