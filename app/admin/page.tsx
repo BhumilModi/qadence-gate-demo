@@ -9,8 +9,8 @@ export default async function Admin() {
   if (role !== "owner") redirect("/");
   return (
     <>
-      <h1>Admin</h1>
-      <p>{listOrders().length} orders on file. Only owners see this page.</p>
+      <h1>Store admin</h1>
+      <p>{listOrders().length} orders so far. This page is for store owners.</p>
     </>
   );
 }
